@@ -1,0 +1,316 @@
+/* ============================================
+   PORTFOLIO - the pieces added for this portfolio's own content:
+   project previews and the detail window, the skills sheet, the
+   experience timeline on About. Same object language as the template:
+   paper cards, 1px lines, accent for the index and the accent.
+   ============================================ */
+
+/* ---------- Projects: card previews ---------- */
+.bento--projects .bento__kicker { display: block; font-size: 10.5px; margin-bottom: 2px; }
+
+.pshot {
+  overflow: hidden;
+  border-radius: 12px;
+  padding: 18px 4px 4px;
+  background: var(--white);
+  box-shadow: inset 0 0 0 1px var(--line), 0 10px 24px -16px rgba(11, 31, 68, 0.6);
+}
+.pshot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+  border-radius: 7px;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+.bento__card:hover .pshot img { transform: scale(1.04); }
+
+.pmobile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  border-radius: 14px;
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(var(--accent-rgb), 0.16), transparent 60%),
+    var(--tint);
+  min-height: 150px;
+}
+.pmobile__phone {
+  display: grid;
+  place-items: center;
+  width: 74px;
+  height: 74px;
+  border-radius: 22px;
+  background: var(--navy);
+  color: var(--accent);
+  box-shadow: 0 16px 30px -16px rgba(11, 31, 68, 0.7);
+  transition: transform var(--dur-med) var(--ease-spring);
+}
+[data-theme='dark'] .pmobile__phone { background: var(--white); }
+.bento__card:hover .pmobile__phone { transform: translateY(-3px) rotate(-6deg); }
+.pmobile__stores { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.pmobile__store {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy);
+}
+.pmobile__store svg { color: var(--accent); }
+
+.pstack__chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-end;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 10px;
+  list-style: none;
+}
+.pstack__chips li {
+  height: 26px;
+  padding: 0 10px;
+  line-height: 26px;
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  box-shadow: inset 0 0 0 1px var(--line);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--navy);
+}
+[data-theme='dark'] .pstack__chips li { background: var(--tint-strong); }
+
+.pgit__icon { background: var(--white); box-shadow: inset 0 0 0 1px var(--line-strong); }
+.pgit__icon img { width: 20px; height: 20px; }
+.pgit__handle {
+  margin-top: auto;
+  font-size: clamp(18px, 1.5vw, 26px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Projects: the detail window ---------- */
+.pdetail { width: min(1280px, 100%); margin: 0 auto; }
+.pdetail__body { padding: clamp(20px, 3.2vh, 40px) clamp(18px, 2.6vw, 44px); }
+.pdetail__head { display: flex; flex-direction: column; gap: 6px; max-width: 72ch; margin-bottom: clamp(18px, 3vh, 32px); }
+.pdetail__kicker {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+.pdetail__title {
+  font-size: clamp(26px, 2.6vw, 44px);
+  font-weight: 700;
+  letter-spacing: var(--ls-display);
+  line-height: 1.08;
+  color: var(--navy);
+}
+.pdetail__summary { font-size: clamp(14px, 1vw, 17px); line-height: 1.6; color: var(--muted); }
+
+.pdetail__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr);
+  gap: clamp(18px, 2.4vw, 40px);
+  align-items: start;
+}
+.pdetail__media { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.pdetail__hero {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  background: var(--white);
+  box-shadow: inset 0 0 0 1px var(--line), 0 24px 50px -30px rgba(11, 31, 68, 0.6);
+}
+.pdetail__placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 320px;
+  padding: 24px;
+  border-radius: 14px;
+  background:
+    radial-gradient(100% 80% at 50% 0%, rgba(var(--accent-rgb), 0.16), transparent 60%),
+    var(--tint);
+  color: var(--accent);
+  text-align: center;
+}
+.pdetail__placeholder span { color: var(--muted); font-size: 14px; }
+
+.pdetail__side { display: flex; flex-direction: column; min-width: 0; }
+.pdetail__label {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.pdetail__label:not(:first-child) { margin-top: 24px; }
+.pdetail__points { display: flex; flex-direction: column; gap: 12px; list-style: none; }
+.pdetail__points li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 10px; font-size: 14.5px; line-height: 1.6; color: var(--navy); }
+.pdetail__points svg { margin-top: 3px; color: var(--accent); }
+.pdetail__chips { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; }
+.pdetail__chips li {
+  height: 30px;
+  padding: 0 12px;
+  line-height: 30px;
+  border-radius: var(--radius-pill);
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--navy);
+}
+.pdetail__links { display: flex; flex-direction: column; gap: 8px; list-style: none; }
+.pdetail__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--navy);
+  color: var(--cream);
+  text-decoration: none;
+  transition: transform var(--dur-med) var(--ease-spring), background var(--dur-fast) var(--ease-out);
+}
+.pdetail__link span { display: flex; flex-direction: column; min-width: 0; }
+.pdetail__link b { font-size: 14px; }
+.pdetail__link small { font-size: 12px; opacity: 0.72; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pdetail__link svg { flex: none; color: var(--accent); }
+.pdetail__link:hover { transform: translateY(-2px); }
+.pdetail__link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+[data-theme='dark'] .pdetail__link { background: var(--white); color: #0B1F44; }
+
+/* Phone screenshots are portrait: at full column width one shot is taller
+   than the window. Keep them phone-sized and give the copy the room. */
+.pdetail[data-phone] .pdetail__grid { grid-template-columns: auto minmax(0, 1fr); gap: clamp(28px, 4vw, 64px); }
+.pdetail[data-phone] .pdetail__hero { max-height: 72vh; width: auto; max-width: 340px; border-radius: 24px; }
+
+@media (max-width: 899px) {
+  .pdetail__grid,
+  .pdetail[data-phone] .pdetail__grid { grid-template-columns: minmax(0, 1fr); }
+  .pdetail[data-phone] .pdetail__hero { max-width: min(300px, 100%); max-height: none; margin: 0 auto; }
+}
+
+/* ---------- Skills ---------- */
+.sgrid__highlights { list-style: none; }
+.sgrid__service .bento__desc { margin-bottom: 4px; }
+.sgrid__skills { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin-top: 12px; }
+.sgrid__skills li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 11px 0 8px;
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  box-shadow: inset 0 0 0 1px var(--line);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--navy);
+}
+[data-theme='dark'] .sgrid__skills li { background: var(--tint-strong); }
+.sgrid__skills img { width: 15px; height: 15px; object-fit: contain; }
+[data-theme='dark'] .sgrid__skills img[data-mono] { filter: invert(1); }
+.sgrid__skills li:not(:has(img))::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  margin: 0 2px 0 3px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ---------- About: education, experience, orgs ---------- */
+.agrid__timeline { display: flex; flex-direction: column; gap: 10px; list-style: none; }
+.agrid__entry {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px 10px 10px;
+  border-radius: 16px;
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.agrid__entry-mark {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--tint-strong);
+  color: var(--accent);
+}
+.agrid__entry-copy { display: flex; flex-direction: column; min-width: 0; }
+.agrid__entry-title { font-size: 14px; font-weight: 700; color: var(--navy); line-height: 1.35; }
+.agrid__entry-meta { font-size: 12.5px; line-height: 1.45; color: var(--muted); }
+.agrid__entry-when {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  white-space: nowrap;
+}
+@media (max-width: 639px) {
+  .agrid__entry { grid-template-columns: 36px minmax(0, 1fr); }
+  .agrid__entry-when { grid-column: 2; }
+}
+
+/* Mono simple-icons marks (black silhouettes) read on white tiles; in dark
+   mode the About ladder tiles stay white, so nothing to flip there. */
+
+.agrid__record {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 1.8vh, 20px);
+  min-height: 0;
+  min-width: 0;
+  padding: clamp(14px, 1.8vh, 22px);
+  border-radius: 22px;
+  background: var(--tint);
+  box-shadow: inset 0 0 0 1px var(--line);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+.agrid__group { display: flex; flex-direction: column; gap: 8px; }
+.agrid__group-label {
+  margin: 0;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+.agrid__record .agrid__timeline { gap: 8px; }
+.agrid__record .agrid__entry { padding: 8px 12px 8px 8px; }
+.agrid__record .agrid__entry-mark { width: 36px; height: 36px; border-radius: 11px; }
+.agrid__record .agrid__entry { grid-template-columns: 36px minmax(0, 1fr) auto; }
+@media (max-width: 1099px) {
+  .agrid__record { margin-top: 18px; overflow: visible; }
+}
+
+/* Home bento: stack chips carry an image mark instead of a glyph. */
+.bento__chip img { width: 15px; height: 15px; object-fit: contain; flex: none; }
+[data-theme='dark'] .bento__chip img[src$='express.svg'],
+[data-theme='dark'] .bento__chip img[src$='vercel.svg'],
+[data-theme='dark'] .bento__chip img[src$='openjdk.svg'] { filter: invert(1); }

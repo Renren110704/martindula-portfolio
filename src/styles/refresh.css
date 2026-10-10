@@ -1,0 +1,567 @@
+/* ============================================
+   REFRESH - Blue Ribbon / Catskill White design pass
+   An overlay on every sheet before it (loaded after portfolio.css, before
+   perf.css, so the perf tiers still get the last word). All colours come
+   from tokens.css - change the palette there, not here.
+
+   Sections:
+     1  Base              selection, focus rings, ambient background
+     2  Rail              profile, socials, navigation
+     3  Hero              headline, lede, CTA
+     4  Plates            the glass sheets that hold the bands
+     5  Ticker            the seamless tools marquee
+     6  Cards             bento cards, icon tiles, media
+     7  Projects          card grid + the macOS detail window
+     8  Motion            entrances, staggers, floating accents
+     9  Preferences       reduced motion
+   ============================================ */
+
+/* ---------- 1. Base ---------- */
+::selection { background: rgba(var(--accent-rgb), 0.18); color: var(--navy); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Ambient background: two very soft blue glows drifting slowly behind the
+   panel. Transform-only animation on a single fixed layer, no blur filter. */
+.shell::before {
+  content: '';
+  position: fixed;
+  inset: -20vmax;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(38vmax 30vmax at 78% 18%, rgba(var(--accent-rgb), 0.10), transparent 70%),
+    radial-gradient(34vmax 28vmax at 18% 88%, rgba(var(--accent-rgb), 0.07), transparent 70%);
+  animation: rf-ambient 28s ease-in-out infinite alternate;
+}
+[data-theme='dark'] .shell::before {
+  background:
+    radial-gradient(38vmax 30vmax at 78% 18%, rgba(var(--accent-rgb), 0.16), transparent 70%),
+    radial-gradient(34vmax 28vmax at 18% 88%, rgba(var(--accent-rgb), 0.10), transparent 70%);
+}
+@keyframes rf-ambient {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-3vmax, 2vmax, 0); }
+}
+
+/* ---------- 2. Rail ---------- */
+@media (min-width: 1100px) {
+  .rail { padding: clamp(28px, 4.2vh, 48px) 26px 26px; }
+
+  .rail::before {
+    background:
+      radial-gradient(120% 34% at 50% 0%, rgba(var(--accent-rgb), 0.07), transparent 70%),
+      var(--paper);
+    box-shadow:
+      inset -1px 0 0 var(--line),
+      14px 0 40px -34px rgba(11, 31, 68, 0.28);
+  }
+
+  /* Avatar: a clean circle with a white ring, a thin accent ring and a soft
+     breathing glow behind it. */
+  .rail__avatar { width: clamp(112px, 17vh, 150px); }
+  .rail__avatar::before {
+    inset: 6%;
+    background: radial-gradient(circle, rgba(var(--accent-rgb), 0.38), transparent 68%);
+    filter: blur(18px);
+    animation: rf-breathe 6s ease-in-out infinite;
+  }
+  .rail__avatar img {
+    border-radius: 50%;
+    object-fit: cover;
+    -webkit-mask-image: none;
+            mask-image: none;
+    filter: none;
+    box-shadow:
+      0 0 0 4px var(--paper),
+      0 0 0 5px rgba(var(--accent-rgb), 0.28),
+      0 18px 36px -16px rgba(11, 31, 68, 0.45);
+  }
+
+  .rail__name { margin-top: 18px; font-size: 21px; }
+  .rail__handle { margin-top: 2px; font-size: 14px; }
+
+  /* Socials + theme: light plates that fill blue on hover. */
+  .rail__actions { gap: 8px; margin-top: 16px; }
+  .rail__socials { gap: 8px; }
+  .rail__social,
+  .rail__theme {
+    width: 42px;
+    height: 42px;
+    background: var(--white);
+    color: var(--navy);
+    box-shadow: inset 0 0 0 1px var(--line), var(--shadow-rest);
+    transition:
+      transform var(--dur-med) var(--ease-out),
+      color var(--dur-fast) var(--ease-out),
+      background var(--dur-fast) var(--ease-out),
+      box-shadow var(--dur-med) var(--ease-out);
+  }
+  .rail__social:hover,
+  .rail__theme:hover {
+    transform: translateY(-2px);
+    color: var(--white);
+    background: var(--accent);
+    box-shadow: inset 0 0 0 1px var(--accent), var(--shadow-accent);
+  }
+  [data-theme='dark'] .rail__social:hover,
+  [data-theme='dark'] .rail__theme:hover { color: #FFFFFF; }
+
+  /* Navigation: neutral rows, a blue tint + indicator bar for the active one. */
+  .rail__nav { margin-top: clamp(18px, 2.8vh, 28px); padding-top: clamp(14px, 2.2vh, 22px); }
+  .rail__nav ul { gap: 4px; }
+  .rail__link {
+    position: relative;
+    height: clamp(42px, 5.4vh, 48px);
+    padding: 0 14px;
+    border-radius: 12px;
+    font-size: 15.5px;
+    color: color-mix(in srgb, var(--navy) 72%, var(--muted));
+    transition:
+      background var(--dur-fast) var(--ease-out),
+      color var(--dur-fast) var(--ease-out),
+      transform var(--dur-med) var(--ease-out);
+  }
+  .rail__link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 3px;
+    height: 20px;
+    margin-top: -10px;
+    border-radius: 0 3px 3px 0;
+    background: var(--accent);
+    transform: scaleY(0);
+    transition: transform var(--dur-med) var(--ease-out);
+  }
+  .rail__link svg { color: var(--muted); transition: color var(--dur-fast) var(--ease-out); }
+  .rail__link:hover {
+    color: var(--navy);
+    background: var(--tint);
+    transform: translateX(2px);
+  }
+  .rail__link:hover svg { color: var(--accent); }
+  .rail__link.active {
+    color: var(--accent-ink);
+    font-weight: 600;
+    background: var(--accent-soft);
+    box-shadow: none;
+    transform: none;
+  }
+  .rail__link.active::before { transform: scaleY(1); }
+  .rail__link.active svg { color: var(--accent); opacity: 1; }
+
+  .rail__copy { padding-top: clamp(18px, 3vh, 30px); }
+}
+
+/* ---------- 3. Hero ----------
+   .home__title's size, weight and tracking are mirrored by .boot__title (the
+   intro flies one onto the other) - so only colour is touched here. */
+.home__title { color: var(--navy); }
+
+.home__lede {
+  max-width: 64ch;
+  font-weight: 400;
+  color: color-mix(in srgb, var(--navy) 62%, var(--muted));
+  line-height: 1.6;
+}
+
+.home__cta {
+  position: relative;
+  overflow: hidden;
+  height: 46px;
+  padding: 0 22px;
+  background: var(--accent);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-accent);
+  transition:
+    transform var(--dur-med) var(--ease-out),
+    box-shadow var(--dur-med) var(--ease-out),
+    background var(--dur-fast) var(--ease-out);
+}
+.home__cta svg {
+  color: #FFFFFF;
+  transition: transform var(--dur-med) var(--ease-out);
+}
+/* A light sheen sweeps across on hover. */
+.home__cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.28) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 700ms var(--ease-out);
+  pointer-events: none;
+}
+.home__cta:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px -12px rgba(var(--accent-rgb), 0.6);
+}
+.home__cta:hover::after { transform: translateX(120%); }
+.home__cta:hover svg { transform: translate(2px, -2px); }
+
+/* ---------- 4. Plates ----------
+   The sheets that hold the tools band and the bento: a quiet near-white
+   surface with a hairline, a faint blue glow in one corner, soft shadow. */
+.home__glass {
+  background:
+    radial-gradient(60% 80% at 100% 0%, rgba(var(--accent-rgb), 0.07), transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(247, 249, 252, 0.78));
+  box-shadow:
+    inset 0 0 0 1px var(--line),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 24px 60px -36px rgba(11, 31, 68, 0.28);
+}
+[data-theme='dark'] .home__glass {
+  background:
+    radial-gradient(60% 80% at 100% 0%, rgba(var(--accent-rgb), 0.14), transparent 70%),
+    linear-gradient(180deg, rgba(13, 22, 41, 0.92), rgba(10, 18, 34, 0.9));
+  box-shadow:
+    inset 0 0 0 1px var(--line),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 24px 60px -36px rgba(0, 0, 0, 0.8);
+}
+@media (prefers-reduced-transparency: reduce) {
+  .home__glass { background: var(--surface-2); }
+}
+
+/* ---------- 5. Ticker ----------
+   Seamless loop: the list is doubled in JSX and the track moves by -50%.
+   That only lands exactly on the seam when every item carries its own
+   trailing space (margin) instead of the track using `gap` - a flex gap
+   leaves half a gap of drift at the seam. */
+.tools-marquee__track { gap: 0; }
+.home__tools-eyebrow { color: var(--accent-ink); }
+/* A small live dot before the band name. */
+.home__tools-eyebrow::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.45);
+  animation: rf-ping 2.4s var(--ease-out) infinite;
+}
+
+@media (min-width: 1100px) {
+  .home__tools-eyebrow { display: inline-flex; align-items: center; gap: 8px; }
+  .home__glass--tools { padding: clamp(10px, 1.4vh, 14px) clamp(14px, 1.2vw, 18px); }
+  .home__tools-head { border-right-color: var(--line); }
+
+  .home .tools-marquee {
+    border: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 40px, #000 calc(100% - 40px), transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 40px, #000 calc(100% - 40px), transparent);
+  }
+  .home .tools-marquee__track {
+    gap: 0;
+    padding: 4px 0;
+    animation-duration: 55s;
+  }
+  .home .tools-marquee__item {
+    gap: 8px;
+    height: 38px;
+    margin-right: 10px;
+    padding: 0 14px 0 10px;
+    border-radius: var(--radius-pill);
+    background: var(--white);
+    box-shadow: inset 0 0 0 1px var(--line);
+    font-size: 13px;
+    font-weight: 600;
+    transition:
+      box-shadow var(--dur-fast) var(--ease-out),
+      transform var(--dur-med) var(--ease-out);
+  }
+  .home .tools-marquee__item::after { display: none; }
+  .home .tools-marquee__item:hover {
+    transform: translateY(-1px);
+    box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), 0.45), 0 6px 14px -8px rgba(var(--accent-rgb), 0.45);
+  }
+  .home .tools-marquee__item:hover .tools-marquee__label { color: var(--accent-ink); }
+  .home .tools-marquee__icon,
+  .home .tools-marquee__img { width: 18px; height: 18px; }
+}
+/* Phones/tablets keep the app-icon row from mobile-pass.css, with the same
+   seam-safe spacing. */
+@media (max-width: 1099px) {
+  /* mobile-pass.css shows the phone tools row straight on the page. */
+  .home .home__glass--tools,
+  [data-theme='dark'] .home .home__glass--tools { background: none; box-shadow: none; }
+  .home .tools-marquee__track { gap: 0; padding-left: 0; padding-right: 0; }
+  .home .tools-marquee__item { margin-right: 6px; }
+  .home .tools-marquee__tile { transition: transform var(--dur-med) var(--ease-out); }
+}
+
+/* ---------- 6. Cards ---------- */
+.bento { gap: clamp(12px, 1.05vw, 18px); }
+
+.bento__card {
+  padding: clamp(14px, 1.7vh, 20px) clamp(14px, 1.2vw, 20px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--paper);
+  box-shadow: var(--shadow-rest);
+  transition:
+    transform 420ms var(--ease-out),
+    box-shadow 420ms var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+/* A thin accent line draws across the top edge on hover. */
+.bento__card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 22px;
+  right: 22px;
+  height: 2px;
+  border-radius: 0 0 2px 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  transform: scaleX(0);
+  opacity: 0;
+  transition: transform 520ms var(--ease-out), opacity var(--dur-med) var(--ease-out);
+  pointer-events: none;
+}
+.bento__card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(var(--accent-rgb), 0.32);
+  box-shadow: var(--shadow-lift);
+}
+.bento__card:hover::after { transform: scaleX(1); opacity: 1; }
+.bento__card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* Icon tiles: soft blue at rest, solid blue when the card is hovered. */
+.bento__icon:not(.pgit__icon) {
+  background: var(--accent-soft);
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), 0.14);
+  transition:
+    background var(--dur-med) var(--ease-out),
+    color var(--dur-med) var(--ease-out),
+    box-shadow var(--dur-med) var(--ease-out),
+    transform var(--dur-med) var(--ease-out);
+}
+.bento__card:hover .bento__icon:not(.pgit__icon) {
+  background: var(--accent);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-accent);
+  transform: translateY(-1px) rotate(-4deg);
+}
+.bento__card:hover .pgit__icon { transform: translateY(-1px) rotate(-4deg); }
+
+.bento__title { color: var(--navy); font-weight: 650; }
+.bento__card:hover .bento__title { color: var(--accent-ink); }
+.bento__desc { color: var(--muted); }
+.bento__arrow { color: var(--accent); }
+
+/* The reel's mini browser windows wear the same traffic lights as the
+   project detail window. */
+.bento__shot::before,
+.pshot::before {
+  background: #FF5F57;
+  box-shadow: 10px 0 0 #FEBC2E, 20px 0 0 #28C840;
+}
+.pshot { position: relative; }
+.pshot::before {
+  content: '';
+  position: absolute;
+  top: 7px;
+  left: 9px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.bento__chip { box-shadow: inset 0 0 0 1px var(--line); }
+.bento__review { background: var(--white); box-shadow: inset 0 0 0 1px var(--line); }
+.bento__review-top svg { color: var(--accent); }
+.bento__review-work { color: var(--accent-ink); }
+
+.bento__badge-ring {
+  box-shadow:
+    inset 0 0 0 1px var(--line),
+    0 0 0 7px var(--accent-soft),
+    0 14px 30px -18px rgba(var(--accent-rgb), 0.55);
+}
+.bento__badge-ring img { animation: rf-float 5.5s ease-in-out infinite; }
+.bento__badge-tag { background: var(--navy); color: var(--cream); }
+.bento__badge-tag svg { color: var(--accent-hover); }
+
+.bento__offer-tile { background: var(--accent-soft); color: var(--accent); }
+.bento__card:hover .bento__offer-tile { background: var(--accent); color: #FFFFFF; }
+
+.bento__photo { box-shadow: 0 0 0 3px var(--paper), 0 14px 30px -14px rgba(11, 31, 68, 0.45); }
+
+/* Skills / About chips: blue border hint on hover. */
+.sgrid__skills li,
+.pstack__chips li,
+.pdetail__chips li {
+  transition: box-shadow var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+.sgrid__skills li:hover,
+.pstack__chips li:hover,
+.pdetail__chips li:hover {
+  box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), 0.5);
+  color: var(--accent-ink);
+}
+.sgrid__skills li:not(:has(img))::before { background: var(--accent); }
+
+/* Section heads on the inner views. */
+.pgrid__eyebrow,
+.view__eyebrow { color: var(--accent-ink); }
+.pgrid__hint { box-shadow: inset 0 0 0 1px var(--line), var(--shadow-rest); }
+.pgrid__hint svg { color: var(--accent); }
+
+/* ---------- 7. Projects + the macOS detail window ----------
+   The window chrome (traffic lights, URL bar, Open button) is kept as-is;
+   only its colours and depth follow the new palette. */
+.pmodal {
+  background: rgba(7, 15, 34, 0.72);
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+}
+.ppanel--window {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: var(--cream);
+  box-shadow:
+    0 0 0 1px rgba(11, 31, 68, 0.06),
+    0 60px 120px -50px rgba(0, 0, 0, 0.7);
+}
+.ppanel__bar { background: var(--paper); border-bottom-color: var(--line); }
+.ppanel__url { background: var(--cream); box-shadow: inset 0 0 0 1px var(--line); }
+.ppanel__ext {
+  background: var(--accent);
+  color: #FFFFFF;
+  transition: background var(--dur-fast) var(--ease-out), transform var(--dur-med) var(--ease-out);
+}
+.ppanel__ext svg { color: #FFFFFF; transition: transform var(--dur-med) var(--ease-out); }
+.ppanel__ext:hover { background: var(--accent-hover); }
+.ppanel__ext:hover svg { transform: translate(1px, -1px); }
+.pmodal__close { transition: transform var(--dur-med) var(--ease-out), background var(--dur-fast) var(--ease-out); }
+
+.pdetail__kicker { color: var(--accent-ink); }
+.pdetail__points svg { color: var(--accent); }
+.pdetail__hero { box-shadow: inset 0 0 0 1px var(--line), 0 24px 50px -30px rgba(11, 31, 68, 0.45); }
+.pdetail__link {
+  background: var(--navy);
+  color: var(--cream);
+  transition:
+    transform var(--dur-med) var(--ease-out),
+    background var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-med) var(--ease-out);
+}
+.pdetail__link svg { color: #7FA6FF; transition: transform var(--dur-med) var(--ease-out), color var(--dur-fast) var(--ease-out); }
+.pdetail__link:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-accent);
+}
+.pdetail__link:hover svg { color: #FFFFFF; transform: translate(2px, -2px); }
+[data-theme='dark'] .pdetail__link { background: var(--accent); color: #FFFFFF; }
+[data-theme='dark'] .pdetail__link svg { color: #FFFFFF; }
+[data-theme='dark'] .pdetail__link:hover { background: var(--accent-hover); }
+
+/* The Stack card's ten chips overflowed the card on laptop-height screens
+   (~720px). Denser chips there keep every one visible. */
+@media (min-width: 1100px) and (max-height: 860px) {
+  .pstack__chips { gap: 5px; padding-top: 8px; }
+  .pstack__chips li { height: 24px; line-height: 24px; padding: 0 9px; font-size: 11px; }
+}
+
+.pmobile__phone { color: var(--accent-hover); }
+.pmobile__store svg { color: var(--accent); }
+
+/* ---------- 8. Motion ----------
+   Cards rise in on a short stagger whenever a grid mounts: on first load
+   (after the intro releases the page), and on every route change. The
+   animation only fills BACKWARDS, so once it ends the card's own hover
+   transform is in charge again. */
+@keyframes rf-rise {
+  from { opacity: 0; transform: translateY(18px) scale(0.985); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes rf-view {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes rf-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+@keyframes rf-breathe {
+  0%, 100% { opacity: 0.75; transform: scale(0.96); }
+  50%      { opacity: 1;    transform: scale(1.04); }
+}
+@keyframes rf-ping {
+  0%   { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.45); }
+  70%  { box-shadow: 0 0 0 7px rgba(var(--accent-rgb), 0); }
+  100% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0); }
+}
+
+html:not(.is-intro) .bento > .bento__card,
+html:not(.is-intro) .bento > li > .bento__card {
+  animation: rf-rise 640ms var(--ease-out) backwards;
+  animation-delay: calc(180ms + var(--rf-i, 0) * 70ms);
+}
+.bento > :nth-child(1) { --rf-i: 0; }
+.bento > :nth-child(2) { --rf-i: 1; }
+.bento > :nth-child(3) { --rf-i: 2; }
+.bento > :nth-child(4) { --rf-i: 3; }
+.bento > :nth-child(5) { --rf-i: 4; }
+.bento > :nth-child(6) { --rf-i: 5; }
+.bento > :nth-child(7) { --rf-i: 6; }
+.bento > :nth-child(8) { --rf-i: 7; }
+.bento > :nth-child(n + 9) { --rf-i: 8; }
+
+/* Headings on the inner views arrive just ahead of their cards. */
+.pgrid__head > *,
+.view__head > * { animation: rf-view 560ms var(--ease-out) backwards; }
+.pgrid__head > :nth-child(2),
+.view__head > :nth-child(2) { animation-delay: 60ms; }
+.pgrid__head > :nth-child(3),
+.view__head > :nth-child(3) { animation-delay: 120ms; }
+
+/* Desktop route changes: the incoming page eases up (phones have their own
+   version in mobile-pass.css). */
+@media (min-width: 1100px) {
+  html.has-navigated .shell__panel > * { animation: rf-view 380ms var(--ease-out); }
+}
+
+/* ---------- 9. Preferences ----------
+   Both the OS setting and the in-page accessibility switch turn the
+   decorative motion off entirely (not just shortened: the staggered delays
+   would otherwise leave cards hidden for a beat). */
+@media (prefers-reduced-motion: reduce) {
+  .shell::before,
+  .rail__avatar::before,
+  .home__tools-eyebrow::before,
+  .bento__badge-ring img,
+  .bento > .bento__card,
+  .bento > li > .bento__card,
+  .pgrid__head > *,
+  .view__head > *,
+  html.has-navigated .shell__panel > * { animation: none !important; }
+  .bento__card:hover,
+  .home__cta:hover,
+  .rail__social:hover,
+  .rail__theme:hover,
+  .rail__link:hover { transform: none; }
+  .home__cta::after { display: none; }
+}
+:root[data-a11y-motion='true'] .shell::before,
+:root[data-a11y-motion='true'] .rail__avatar::before,
+:root[data-a11y-motion='true'] .home__tools-eyebrow::before,
+:root[data-a11y-motion='true'] .bento__badge-ring img,
+:root[data-a11y-motion='true'] .bento > .bento__card,
+:root[data-a11y-motion='true'] .bento > li > .bento__card,
+:root[data-a11y-motion='true'] .pgrid__head > *,
+:root[data-a11y-motion='true'] .view__head > *,
+:root[data-a11y-motion='true'].has-navigated .shell__panel > * { animation: none !important; }
+:root[data-a11y-motion='true'] .home__cta::after { display: none; }

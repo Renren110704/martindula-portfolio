@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="Martin Dula">
+  <!-- Initials avatar. Replace with a square photo (avatar.webp) and point
+       profile.avatarSrc at it. -->
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1F44"/>
+      <stop offset="1" stop-color="#1D4ED8"/>
+    </linearGradient>
+  </defs>
+  <circle cx="200" cy="200" r="200" fill="url(#g)"/>
+  <circle cx="300" cy="104" r="26" fill="#1D61F3"/>
+  <text x="200" y="246" text-anchor="middle" font-family="Poppins, Segoe UI, Arial, sans-serif" font-size="148" font-weight="700" fill="#FFFFFF" letter-spacing="-4">MD</text>
+</svg>
