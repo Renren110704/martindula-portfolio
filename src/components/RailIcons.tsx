@@ -4,7 +4,7 @@
  * per-part choreography does not apply to filled two-tone glyphs; the rail
  * keeps its row slide and the icon gets a single lift + tilt instead.
  */
-import { House, FolderOpen, Stack, Coffee, Star, User, ChatCircle, type Icon } from '@/components/slab'
+import { House, FolderOpen, Stack, Coffee, Star, User, Certificate, ChatCircle, type Icon } from '@/components/slab'
 
 type IconProps = { size?: number }
 
@@ -24,4 +24,5 @@ export const StackIcon = wrap(Stack)
 export const CupIcon = wrap(Coffee)
 export const StarIcon = wrap(Star)
 export const UserIcon = wrap(User)
+export const CertificateIcon = wrap(Certificate)
 export const MessageIcon = wrap(ChatCircle)

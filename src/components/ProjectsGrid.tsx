@@ -1,9 +1,7 @@
-import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
-import { createPortal } from 'react-dom'
+import { useCallback, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ArrowUpRight,
-  X,
   CursorClick,
   AndroidLogo,
   AppleLogo,
@@ -13,6 +11,7 @@ import {
 } from '@/components/slab'
 import { projects, type Project } from '@/data/projects'
 import { profile } from '@/data/profile'
+import Modal from '@/components/Modal'
 
 /**
  * Projects, as one viewport in Home's bento language: the three shipped
@@ -167,45 +166,6 @@ function ProjectDetail({ p }: { p: Project }) {
   )
 }
 
-/* ---------- Dialog ---------- */
-
-function ProjectModal({ label, onClose, children }: { label: string; onClose: () => void; children: ReactNode }) {
-  const closeRef = useRef<HTMLButtonElement>(null)
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-    document.addEventListener('keydown', onKey)
-    document.body.style.overflow = 'hidden'
-    requestAnimationFrame(() => closeRef.current?.focus())
-    return () => {
-      document.removeEventListener('keydown', onKey)
-      document.body.style.overflow = ''
-    }
-  }, [onClose])
-
-  return createPortal(
-    <div
-      className="pmodal"
-      role="dialog"
-      aria-modal="true"
-      aria-label={label}
-      // Lenis smooth-scroll eats wheel events page-wide; let the dialog scroll natively.
-      data-lenis-prevent
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose()
-      }}
-    >
-      <button ref={closeRef} type="button" className="pmodal__close" onClick={onClose} aria-label="Close">
-        <X size={18} weight="bold" />
-      </button>
-      <div className="pmodal__stage">{children}</div>
-    </div>,
-    document.body,
-  )
-}
-
 /* ---------- The page ---------- */
 
 export default function ProjectsGrid() {
@@ -294,9 +254,9 @@ export default function ProjectsGrid() {
       </div>
 
       {open && (
-        <ProjectModal label={open.name} onClose={close}>
+        <Modal label={open.name} onClose={close}>
           <ProjectDetail p={open} />
-        </ProjectModal>
+        </Modal>
       )}
     </section>
   )

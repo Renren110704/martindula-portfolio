@@ -1,6 +1,8 @@
 import type { CSSProperties } from 'react'
+import { Link } from 'react-router-dom'
 import { ArrowUpRight, MapPin, GraduationCap, PaintBrush, UsersThree, Certificate, type Icon } from '@/components/slab'
 import { profile } from '@/data/profile'
+import { certifications, badges } from '@/data/credentials'
 
 /**
  * AboutGrid - the About view as a fixed viewport.
@@ -8,7 +10,8 @@ import { profile } from '@/data/profile'
  * One glass sheet, two columns: who I am on the left (the statement, the
  * four kinds of work with the marks of their tools, and a bar of quick
  * facts), and the record on the right - education, experience,
- * organizations and certifications, straight from the resume.
+ * organizations, and a link through to the Credentials page for the
+ * certifications and badges.
  */
 
 const REACT = { src: '/icons/ai/react.svg', name: 'React' }
@@ -74,14 +77,6 @@ const RECORD: Group[] = [
     entries: [
       { title: 'House of Vanguard - NU MOA', meta: '4th Year Representative', Icon: UsersThree },
       { title: 'JPCS - NU MOA', meta: 'Member', Icon: UsersThree },
-    ],
-  },
-  {
-    label: 'Certifications',
-    entries: [
-      { title: 'Computer System Servicing NC II', meta: 'TESDA Online Program', Icon: Certificate },
-      { title: 'Packet Tracer courses (4)', meta: 'Cisco Networking Academy', Icon: Certificate },
-      { title: 'Introduction to Computer Networking', meta: 'Simplilearn', Icon: Certificate },
     ],
   },
 ]
@@ -170,7 +165,8 @@ export default function AboutGrid() {
           </div>
         </div>
 
-        <div className="agrid__record">
+        {/* Lenis eats wheel events page-wide; let the record scroll natively. */}
+        <div className="agrid__record" data-lenis-prevent>
           {RECORD.map((g) => (
             <section key={g.label} className="agrid__group" aria-label={g.label}>
               <h2 className="agrid__group-label">{g.label}</h2>
@@ -190,6 +186,25 @@ export default function AboutGrid() {
               </ul>
             </section>
           ))}
+
+          <section className="agrid__group" aria-label="Certifications and badges">
+            <h2 className="agrid__group-label">Certifications</h2>
+            <Link to="/credentials" className="agrid__entry agrid__entry--btn">
+              <span className="agrid__entry-mark" aria-hidden="true">
+                <Certificate size={20} weight="duotone" />
+              </span>
+              <span className="agrid__entry-copy">
+                <span className="agrid__entry-title">Certifications and badges</span>
+                <span className="agrid__entry-meta">
+                  {certifications.length} certifications · {badges.length} {badges.length === 1 ? 'badge' : 'badges'}
+                </span>
+              </span>
+              <span className="agrid__entry-end">
+                <span className="agrid__entry-when">View all</span>
+                <ArrowUpRight className="agrid__entry-go" size={14} weight="bold" aria-hidden="true" />
+              </span>
+            </Link>
+          </section>
         </div>
       </div>
     </section>

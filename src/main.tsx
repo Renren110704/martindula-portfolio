@@ -11,6 +11,7 @@ import { restorePrefs } from '@/lib/a11y'
 const ProjectsView = lazy(() => import('@/views/ProjectsView'))
 const SkillsGrid = lazy(() => import('@/components/SkillsGrid'))
 const AboutGrid = lazy(() => import('@/components/AboutGrid'))
+const CredentialsGrid = lazy(() => import('@/components/CredentialsGrid'))
 const ContactGrid = lazy(() => import('@/components/ContactGrid'))
 const ThankYou = lazy(() => import('@/components/ThankYou'))
 import './styles/tokens.css'
@@ -31,6 +32,7 @@ import './styles/services-grid.css'
 import './styles/showcase.css'
 import './styles/testimonials-grid.css'
 import './styles/about-grid.css'
+import './styles/credentials-grid.css'
 import './styles/contact-grid.css'
 import './styles/boot.css'
 import './styles/credentials.css'
@@ -67,6 +69,7 @@ createRoot(container).render(
           <Route path="/projects" element={<ProjectsView />} />
           <Route path="/skills" element={<SkillsGrid />} />
           <Route path="/about" element={<AboutGrid />} />
+          <Route path="/credentials" element={<CredentialsGrid />} />
           <Route path="/contact" element={<ContactGrid />} />
         </Route>
         {/* Standalone pages: their own layout, no rail, document scroll. */}

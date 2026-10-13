@@ -287,3 +287,36 @@
 @media (max-width: 639px) {
   .agrid__cell-meta { font-size: 11.5px; }
 }
+
+/* ---------- Link through to Credentials ----------
+   Same entry anatomy as the rest of the record, but it is a link. The arrow
+   is the affordance; the row lifts its border to the accent on hover so it
+   reads as live without looking like a CTA. */
+.agrid__entry--btn {
+  width: 100%;
+  border: 0;
+  font: inherit;
+  text-align: left;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: box-shadow 200ms var(--ease-out), transform 200ms var(--ease-out);
+}
+.agrid__entry--btn:hover { box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), 0.55); }
+.agrid__entry--btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.agrid__entry--btn:active { transform: scale(0.99); }
+.agrid__entry-end { display: inline-flex; align-items: center; gap: 8px; }
+.agrid__entry-go {
+  flex: none;
+  color: var(--line-strong);
+  transition: color 200ms var(--ease-out), transform 200ms var(--ease-out);
+}
+.agrid__entry--btn:hover .agrid__entry-go { color: var(--accent); transform: translate(2px, -2px); }
+@media (max-width: 639px) {
+  .agrid__record .agrid__entry--btn { grid-template-columns: 36px minmax(0, 1fr) auto; }
+  .agrid__entry--btn .agrid__entry-end { grid-column: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agrid__entry--btn:active { transform: none; }
+}

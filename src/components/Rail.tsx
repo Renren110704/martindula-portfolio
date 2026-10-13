@@ -7,6 +7,7 @@ import {
   FolderIcon,
   StackIcon,
   UserIcon,
+  CertificateIcon,
   MessageIcon,
 } from './RailIcons'
 import { getTheme, toggleTheme, type Theme } from '@/lib/theme'
@@ -28,6 +29,7 @@ export const RAIL_LINKS = [
   { label: 'Projects', to: '/projects', Icon: FolderIcon },
   { label: 'Skills', to: '/skills', Icon: StackIcon },
   { label: 'About', to: '/about', Icon: UserIcon },
+  { label: 'Credentials', to: '/credentials', Icon: CertificateIcon },
   { label: 'FAQs / Contact', to: '/contact', Icon: MessageIcon },
 ] as const
 
