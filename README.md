@@ -1,6 +1,6 @@
 # Martin Dula - Portfolio
 
-Personal portfolio of Martin Lorenz O. Dula, a fourth-year BS IT student at National University - MOA, looking for a full-stack developer internship.
+Personal portfolio of Martin Lorenz O. Dula, a fourth-year BS IT student at National University - MOA, open to internship, junior developer and IT roles.
 
 Built on [brewed-ops/portfolio-template](https://github.com/brewed-ops/portfolio-template): Vite 6, React 19, TypeScript, Three.js, GSAP, React Router 7, Phosphor icons.
 

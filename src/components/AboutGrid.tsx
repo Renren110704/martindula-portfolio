@@ -26,6 +26,9 @@ const MYSQL = { src: '/icons/stack/mysql.svg', name: 'MySQL' }
 const GITHUB = { src: '/icons/ai/github.svg', name: 'GitHub' }
 const VERCEL = { src: '/icons/stack/vercel.svg', name: 'Vercel' }
 const RENDER = { src: '/icons/stack/render.svg', name: 'Render' }
+const NETWORK = { src: '/icons/stack/network.svg', name: 'Networking' }
+const TERMINAL = { src: '/icons/stack/terminal.svg', name: 'Linux terminal' }
+const WRENCH = { src: '/icons/stack/wrench.svg', name: 'Computer servicing' }
 
 type Capability = {
   index: string
@@ -34,10 +37,10 @@ type Capability = {
 }
 
 const CAPABILITIES: Capability[] = [
-  { index: '01', title: 'Full-stack web apps', marks: [MONGO, EXPRESS, REACT, NODE, TAILWIND] },
-  { index: '02', title: 'Mobile apps in React Native', marks: [REACT, ANDROID, FIREBASE] },
-  { index: '03', title: 'REST APIs, auth and databases', marks: [NODE, EXPRESS, POSTMAN, MYSQL] },
-  { index: '04', title: 'Deploying and shipping', marks: [GITHUB, VERCEL, RENDER] },
+  { index: '01', title: 'Web and mobile apps', marks: [REACT, TAILWIND, ANDROID, FIREBASE, MONGO] },
+  { index: '02', title: 'REST APIs, auth and databases', marks: [NODE, EXPRESS, POSTMAN, MYSQL] },
+  { index: '03', title: 'Deploying and shipping', marks: [GITHUB, VERCEL, RENDER] },
+  { index: '04', title: 'IT support, networking and Linux', marks: [NETWORK, TERMINAL, WRENCH] },
 ]
 
 type Entry = { title: string; meta: string; when?: string; Icon: Icon }
@@ -90,7 +93,7 @@ export default function AboutGrid() {
           {`Hi, I’m ${profile.firstName}.`}
         </h1>
         <p className="pgrid__lede">
-          Fourth-year IT student at National University - MOA, looking for a full-stack developer internship.
+          Fourth-year IT student at National University - MOA, open to internship, junior developer and IT roles.
         </p>
       </header>
 
@@ -106,7 +109,7 @@ export default function AboutGrid() {
             <a className="agrid__link" href="https://anaiasmotorcyclerental.com" target="_blank" rel="noopener noreferrer">
               Anaia&rsquo;s Motorcycle Rental
             </a>
-            , a live platform I built alone for a rental business: a customer website, an admin panel, a React Native app and real-time GPS tracking for the fleet.
+            , a live platform I built alone for a rental business: a customer website, an admin panel, a React Native app and real-time GPS tracking for the fleet. I also hold TESDA Computer System Servicing NC II and have Cisco networking and Linux coursework, so I am comfortable on the IT support and systems side too.
           </p>
 
           <ul className="agrid__caps" role="list">

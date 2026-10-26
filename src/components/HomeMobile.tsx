@@ -48,7 +48,7 @@ export function HomeStats() {
 
 const TILES = [
   { n: '01', label: 'Projects', to: '/projects', title: 'Three apps, built and deployed', desc: 'Rental platform, mobile app, inventory system.', img: '/projects/anaias-web.png' },
-  { n: '02', label: 'Skills', to: '/skills', title: 'MERN and React Native', desc: 'Web, mobile, APIs and deployment.', Icon: Stack },
+  { n: '02', label: 'Skills', to: '/skills', title: 'Development and IT', desc: 'MERN, React Native, networking and Linux.', Icon: Stack },
   { n: '03', label: 'Experience', to: '/about', title: 'Education and organizations', desc: 'NU MOA, House of Vanguard, JPCS.', Icon: Briefcase, accent: true },
   { n: '04', label: 'About', to: '/about', title: `Hi, I'm ${profile.firstName}.`, desc: 'IT student at NU MOA, based in Cavite.', img: profile.avatarSrc },
 ] as const

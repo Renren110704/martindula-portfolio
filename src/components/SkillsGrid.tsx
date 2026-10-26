@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react'
-import { Storefront, StackSimple, Medal } from '@/components/slab'
+import { Storefront, StackSimple, Certificate } from '@/components/slab'
 import type { Icon } from '@/components/slab'
 
 /**
@@ -38,10 +38,10 @@ const STAGES: Stage[] = [
   },
   {
     index: '03',
-    label: "Consistent Dean's Lister",
-    body: "Dean's List in 8 of 9 terms at National University - MOA, 1st Dean's Lister in 7.",
-    Icon: Medal,
-    chips: ['BSIT', 'Mobile & Web Apps'],
+    label: 'IT fundamentals',
+    body: 'TESDA Computer System Servicing NC II, plus Cisco networking and Linux coursework.',
+    Icon: Certificate,
+    chips: ['Servicing', 'Networking', 'Linux'],
   },
 ]
 
@@ -72,6 +72,10 @@ const ICONS: Record<string, string> = {
   Flutter: '/icons/stack/flutter.svg',
   'Spring Boot': '/icons/stack/springboot.svg',
   Unity: '/icons/stack/unity.svg',
+  Networking: '/icons/stack/network.svg',
+  'Cisco Packet Tracer': '/icons/stack/network.svg',
+  Linux: '/icons/stack/terminal.svg',
+  'Computer Servicing': '/icons/stack/wrench.svg',
 }
 
 /** Marks that are single-colour black silhouettes, flipped in dark mode. */
@@ -93,7 +97,7 @@ const GROUPS: Group[] = [
     description: 'What I write every day, and what I learned on.',
     chip: 'Core',
     logos: [ICONS.JavaScript, ICONS.Java, ICONS.HTML],
-    skills: ['JavaScript', 'Java', 'SQL', 'HTML', 'CSS'],
+    skills: ['JavaScript', 'Java', 'SQL', 'HTML', 'CSS', 'Python', 'Dart'],
   },
   {
     index: '02',
@@ -109,7 +113,7 @@ const GROUPS: Group[] = [
     description: 'APIs, auth and data behind the apps I ship.',
     chip: 'Server',
     logos: [ICONS['Node.js'], ICONS['Express.js'], ICONS.MongoDB],
-    skills: ['Node.js', 'Express.js', 'REST APIs', 'JWT Authentication', 'MongoDB', 'MySQL', 'Firebase Firestore'],
+    skills: ['Node.js', 'Express.js', 'REST APIs', 'JWT Authentication', 'MongoDB', 'MySQL', 'Firebase Firestore', 'Spring Boot'],
   },
   {
     index: '04',
@@ -117,15 +121,15 @@ const GROUPS: Group[] = [
     description: 'Building, testing and deploying.',
     chip: 'Ship',
     logos: [ICONS['React Native'], ICONS['Android Studio'], ICONS.Postman],
-    skills: ['React Native', 'Android Studio', 'Git/GitHub', 'Postman', 'Vite', 'Vercel', 'Render'],
+    skills: ['React Native', 'Flutter', 'Android Studio', 'Git/GitHub', 'Postman', 'Vite', 'Vercel', 'Render'],
   },
   {
     index: '05',
-    title: 'Familiar with',
-    description: 'Used in coursework and side projects.',
-    chip: 'Exploring',
-    logos: [ICONS.Python, ICONS.Flutter, ICONS['Spring Boot']],
-    skills: ['Python', 'Dart', 'Flutter', 'Spring Boot', 'Unity', 'GameMaker Studio'],
+    title: 'IT & Systems',
+    description: 'Servicing, networking and Linux from training and coursework.',
+    chip: 'IT',
+    logos: [ICONS.Networking, ICONS.Linux, ICONS['Computer Servicing']],
+    skills: ['Computer Servicing', 'Networking', 'Cisco Packet Tracer', 'Linux', 'Troubleshooting'],
   },
 ]
 
@@ -152,7 +156,7 @@ export default function SkillsGrid() {
           The stack behind the projects.
         </h1>
         <p className="pgrid__lede">
-          Mostly MongoDB, Express, React and Node.js on the web, and React Native on mobile.
+          Mostly MongoDB, Express, React and Node.js on the web, and React Native on mobile, backed by IT fundamentals in servicing, networking and Linux.
         </p>
       </header>
 
@@ -161,12 +165,12 @@ export default function SkillsGrid() {
           <div className="sgrid__method-copy">
             <span className="sgrid__method-eyebrow">Highlights</span>
             <h2 className="sgrid__method-title" id="method-title">
-              Shipped. Full stack.
+              Shipped. Full stack. IT-ready.
               <br />
               <span>And still learning.</span>
             </h2>
             <p className="sgrid__method-sub">
-              Fourth-year BSIT, specializing in mobile and web applications.
+              Fourth-year BSIT and Dean&rsquo;s Lister, specializing in mobile and web applications.
             </p>
           </div>
 

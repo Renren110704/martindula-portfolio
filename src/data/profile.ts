@@ -48,7 +48,7 @@ export const profile: Profile = {
   name: 'Martin Dula',
   firstName: 'Martin',
   handle: '@Renren110704',
-  role: 'Full-stack developer',
+  role: 'Developer & IT generalist',
   avatarSrc: '/profilepic.png',
   verifiedLabel: "Dean's Lister, National University - MOA",
   email: 'martinlorenzdula@gmail.com',
@@ -60,10 +60,10 @@ export const profile: Profile = {
     { value: 'Cavite', label: 'PH · GMT+8', Icon: MapPin },
   ],
   // The intro types this line, then flies it into the Home headline.
-  displayName: { line1: 'I build web and mobile apps', line2: 'that ship.' },
+  displayName: { line1: 'Developer and IT generalist.', line2: 'I build apps that ship.' },
   hero: {
     body:
-      'Fourth-year IT student at National University - MOA, building full-stack apps with MongoDB, Express, React, Node.js and React Native. Looking for a full-stack developer internship.',
+      'Fourth-year IT student at National University - MOA. I build web and mobile apps (MERN, React Native) and bring IT fundamentals in computer servicing, networking and Linux. Open to internship, junior developer and IT roles.',
     portraitSrc: '/avatar.svg',
     portraitAlt: 'Martin Dula',
   },

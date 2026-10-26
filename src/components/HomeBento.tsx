@@ -11,7 +11,7 @@ import {
   Globe,
   DeviceMobile,
   Database,
-  ShieldCheck,
+  Certificate,
   CloudArrowUp,
   SealCheck,
   UsersThree,
@@ -34,7 +34,7 @@ const OFFERS = [
   { Icon: Globe, title: 'Web apps', note: 'MongoDB, Express, React, Node.js' },
   { Icon: DeviceMobile, title: 'Mobile apps', note: 'React Native, Android Studio' },
   { Icon: Database, title: 'APIs and databases', note: 'REST, MongoDB, MySQL, Firestore' },
-  { Icon: ShieldCheck, title: 'Auth and roles', note: 'JWT, Google sign-in, RBAC' },
+  { Icon: Certificate, title: 'IT and networking', note: 'Servicing NC II, Cisco, Linux' },
   { Icon: CloudArrowUp, title: 'Deployment', note: 'Vercel, Render, MongoDB Atlas' },
 ] as const
 
@@ -153,7 +153,7 @@ export default function HomeBento() {
       </Link>
 
       <Link to="/skills" className="bento__card bento__card--services">
-        <CardHead Icon={Stack} title="Skills" desc="Full stack, web and mobile." />
+        <CardHead Icon={Stack} title="Skills" desc="Development and IT fundamentals." />
         <ul className="bento__media bento__offers" role="list">
           {OFFERS.map(({ Icon, title, note }, i) => (
             <li key={title} className="bento__offer" style={{ '--i': i } as React.CSSProperties}>

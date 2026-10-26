@@ -9,11 +9,11 @@ export type QA = { q: string; a: string }
 export const FAQS: QA[] = [
   {
     q: 'What are you looking for?',
-    a: 'A full-stack developer internship. I am a fourth-year BS Information Technology student at National University - MOA, specializing in mobile and web applications.',
+    a: 'Internship, entry-level and junior roles in software development or IT: full-stack and mobile development, IT support, systems and networking. I am a fourth-year BS Information Technology student at National University - MOA, graduating in 2027.',
   },
   {
-    q: 'What is your main stack?',
-    a: 'MongoDB, Express, React and Node.js on the web, and React Native on mobile. I also work with MySQL, Firebase Firestore, Tailwind CSS and JWT authentication, and deploy on Vercel and Render.',
+    q: 'What are your main skills?',
+    a: 'On the development side: MongoDB, Express, React, Node.js and React Native, with MySQL, Firebase and JWT auth, deployed on Vercel and Render. On the IT side: computer system servicing (TESDA NC II), networking with Cisco Packet Tracer, and Linux basics.',
   },
   {
     q: 'What have you shipped?',
