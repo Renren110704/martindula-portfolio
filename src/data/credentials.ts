@@ -40,6 +40,13 @@ const cert = (slug: string) => ({
 
 export const certifications: Certification[] = [
   {
+    id: 'umak-it-skills-olympics',
+    title: '15th IT Skills Olympics: Web Design Category',
+    issuer: 'University of Makati · College of Computing and Information Sciences',
+    when: 'Nov 2026',
+    docs: [{ title: 'Certificate of Participation', ...cert('umak-it-skills-olympics') }],
+  },
+  {
     id: 'cisco-linux-unhatched',
     title: 'Linux Unhatched',
     issuer: 'Cisco Networking Academy · NDG',
